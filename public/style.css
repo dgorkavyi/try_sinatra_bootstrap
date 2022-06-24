@@ -1,6 +1,26 @@
 .red-alert {
   color: red;
-  background: rgba(255, 103, 103, 0.623);
+  background: rgba(255, 131, 131, 0.623);
   padding: 4px;
   border-radius: 5px;
+  margin: 0;
+}
+
+.goods {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 14px;
+  flex-wrap: wrap;
+}
+
+.goods_item {
+  width: 200px;
+  height: 140px;
+  border: 1px solid black;
+  margin: 10px;
+}
+
+.goods_item * {
+  padding: 4px;
+  text-align: center;
 }

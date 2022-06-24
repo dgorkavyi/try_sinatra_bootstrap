@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   </head>
   <body>
+		<script>
+			async function get_buy(name, price) {
+					console.log({name, price});
+			}
+		</script>
 		<div class="container">
 
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -24,25 +29,38 @@
 						<li class="nav-item active">
 							<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
 						</li>
+						<li class="nav-item active">
+							<a class="nav-link" href="/about">About <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link" href="/shopping-cart">Shopping Cart <span class="sr-only">(current)</span></a>
+						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<%=username%>
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="/login/form">Login</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="/logout">Logout</a>
+								<% if session[:identity] == 'admin' %>
+									<a class="dropdown-item" href="/logout">Logout</a>
+								<% else %>
+									<a class="dropdown-item" href="/login/form">Login</a>
+								<% end %>
 							</div>
 						</li>
+						<% if session[:identity] == 'admin' %>
+						<li class="nav-item active">
+							<a class="nav-link" href="/admin-panel">Admin Panel<span class="sr-only">(current)</span></a>
+						</li>
+						<% end %>
 					</ul>
 				</div>
 			</nav>
 
 			<div class="container">
-				<%if @error then %>
-						<div class="alert alert-error"><%=@error%></div>
-				<% end %>
 				<%= yield %>
+				<%if @error then %>
+						<div class="alert-error"><%=@error%></div>
+				<% end %>
 			</div>
 
 		</div>
