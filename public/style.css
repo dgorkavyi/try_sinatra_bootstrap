@@ -1,0 +1,6 @@
+.red-alert {
+  color: red;
+  background: rgba(255, 103, 103, 0.623);
+  padding: 4px;
+  border-radius: 5px;
+}
