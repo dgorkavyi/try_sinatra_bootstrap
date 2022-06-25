@@ -1,5 +1,8 @@
 require 'rubygems'
 require 'sinatra'
+require 'sqlite3'
+
+$db = SQLite3::Database.new 'test.sqlite'
 
 $path_to_goods = './public/goods.txt'
 
