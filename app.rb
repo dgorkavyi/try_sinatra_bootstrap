@@ -2,9 +2,14 @@ require 'rubygems'
 require 'sinatra'
 require 'sqlite3'
 
-$db = SQLite3::Database.new 'test.sqlite'
-
-$path_to_goods = './public/goods.txt'
+# Fill db
+SQLite3::Database.new 'test.sqlite' do |db|
+  #db.execute 'create table users(id integer primary key autoincrement, Name varchar, Phone varchar, dateStamp varchar, Pizzeiola varchar);'
+  #db.execute 'insert into users(Name, Phone, DateStamp, Pizzeiola) values ("Bob", "+00000000", "10:00", "el Demitrio");'
+  #db.execute 'insert into users(Name, Phone, DateStamp, Pizzeiola) values ("John", "+00000000", "13:00", "el Demitrio");'
+  #db.execute 'insert into users(Name, Phone, DateStamp, Pizzeiola) values ("Tobias", "+00000000", "15:00", "el Demitrio");'
+  #db.execute 'insert into users(Name, Phone, DateStamp, Pizzeiola) values ("Helen", "+00000000", "14:00", "el Demitrio");'
+end
 
 configure do
   enable :sessions
@@ -122,4 +127,16 @@ post '/add-item' do
   file.close
 
   redirect to '/admin-panel'
+end
+
+get '/showusers' do
+  @result = []
+  SQLite3::Database.new 'test.sqlite' do |db|
+    db.results_as_hash = true
+    db.execute 'select Name, DateStamp, Pizzeiola from users' do |row|
+      @result << row
+    end
+  end
+
+  erb :showusers
 end
